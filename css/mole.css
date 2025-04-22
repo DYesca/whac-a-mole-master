@@ -1,0 +1,324 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    background: url("/img/mario-bg.jpg");
+    background-size: cover;
+}
+
+/* Estilos del juego */
+#board {
+    width: 540px;
+    height: 540px;
+    /* background-color: green; */
+
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+
+    background: url("/img/soil.png");
+    background-size: cover;
+    border: 3px solid white;
+    border-radius: 25px;
+}
+
+#board div {
+    /* board = 540 x 540, divide into 3x3 tiles --> 180 x 180 per div */
+    width: 180px;
+    height: 180px;
+    background-image: url("/img/pipe.png");
+    background-size: cover;
+}
+
+#board div img {
+    /* all img tags inside tiles */
+    width: 100px;
+    height: 100px;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+
+/* Estilos start modal*/
+#start-modal {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.start-modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.start-modal-content button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+.start-modal-content button:hover {
+    background-color: #218838;
+}
+
+/* Estilos win modal  */
+#win-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegurarse de que esté por encima de otros elementos */
+}
+
+.win-modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    
+}
+
+.win-modal-content button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+.win-modal-content button:hover {
+    background-color: #218838;
+}
+
+/* Estilos game over  */
+#game-over-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegurarse de que esté por encima de otros elementos */
+}
+
+.game-over-modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+.game-over-modal-content button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+.game-over-modal-content button:hover {
+    background-color: #218838;
+}
+
+/* Estilos correct modal  */
+#correct-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.correct-modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+.correct-modal-content button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+.correct-modal-content button:hover {
+    background-color: #218838;
+}
+
+/* Estilos modal de pausa  */
+#pause-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+.pause-modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+.pause-modal-content button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+.pause-modal-content button:hover {
+    background-color: #218838;
+}
+
+#Reiniciar{
+    background-color: #ff0000;
+
+}
+#Reiniciar:hover{
+    background-color: #ff4d4d;
+}
+
+
+/* Estilos para la pregunta  */
+
+#math-question-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegurarse de que esté por encima de otros elementos */
+}
+
+.math-modal-content {
+    position: relative; /* Cambio de absolute a relative */
+    width: 90%; /* Ajuste para responsive */
+    max-width: 700px; /* Aumentado de 600px */
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    max-height: 90vh; /* Altura máxima para evitar desbordamiento */
+    overflow-y: auto; /* Permitir scroll si el contenido es demasiado grande */
+}
+
+
+.math-modal-content button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+.math-modal-content button:hover {
+    background-color: #218838;
+}
+
+#math-question-image {
+    display: block;
+    max-width: 100%; /* Cambiado de 500px fijo a porcentaje */
+    max-height: 300px; /* Altura máxima para la imagen de pregunta */
+    width: auto; /* Mantener proporción */
+    height: auto;
+    margin: 15px auto;
+    object-fit: contain;
+}
+
+#math-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 20px 0;
+    width: 100%;
+}
+
+#math-options button {
+    background: #f0f0f0;
+    border: 2px solid #666; /* Borde más visible */
+    border-radius: 8px;
+    padding: 15px; /* Más espacio interno */
+    margin: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Evitar desbordamiento de contenido */
+    height: 150px; /* Altura aumentada */
+    width: 100%;
+}
+
+#math-options button:hover {
+    background: #e0e0e0;
+    border-color: #333;
+    transform: scale(1.02);
+}
+
+#math-options button:disabled {
+    cursor: not-allowed;
+}
+
+#math-options button img {
+    /* max-width: 95%; /* Casi todo el ancho disponible */
+      /*height: auto; /* Altura automática según proporción */
+      /*min-height: 100px; /* Altura mínima para asegurar visibilidad */
+      /*object-fit: contain;
+      /*display: block; */
+      max-width: 100% !important; /* Importante para sobrescribir estilos inline */
+      height: auto !important;
+      min-height: 50px;
+      object-fit: contain;
+      display: block;
+}
+
+img{
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}

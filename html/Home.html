@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego Golpea a el Topo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+
+<body id="app" class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="relative w-96 rounded-xl overflow-hidden shadow-xl border border-gray-300 bg-white">
+        <!-- Fondo con imagen -->
+        <div class="relative h-60 bg-cover bg-center" style="background-image: url('/img/mario-playa.jpg');">
+            <!-- Sombra degradada para mejorar legibilidad -->
+            <div class="absolute inset-0 bg-gradient-to-t from-white/70 to-transparent"></div>
+        </div>
+
+        <!-- Contenido dentro de la tarjeta -->
+        <div class="p-6 text-center">
+            <h2 class="text-xl font-bold text-gray-900">Juego Golpea al Topo</h2>
+            <p class="text-sm text-gray-700 mb-4">¡Diviértete golpeando topos en este increíble juego!</p>
+
+            <div class="space-y-3">
+                <button onclick="goGame()" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
+                    Iniciar Juego
+                </button>
+                <button onclick="openModal('rulesModal')"
+                    class="w-full bg-gray-500 text-white py-2 rounded-lg hover:bg-gray-600">
+                    Reglas
+                </button>
+                <button onclick="openModal('feedbackModal')"
+                    class="w-full bg-yellow-500 text-white py-2 rounded-lg hover:bg-yellow-600">
+                    Retroalimentación
+                </button>
+                <button onclick="openModal('integrantesModal')"
+                    class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
+                    Integrantes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Template -->
+    <div id="rulesModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-1/2">
+            <h2 class="text-xl font-bold mb-4">Reglas</h2>
+            <p class="mb-4">¡Bienvenido al juego Golpea al Topo!</p>
+            <p>
+                <strong>Instrucciones:</strong><br>
+                - Haz clic en los topos que aparecen en la pantalla para ganar puntos.<br>
+                - Cada topo golpeado suma 10 puntos.<br>
+                - Si no golpeas un topo, se te hará una pregunta para que puedas continuar jugando.<br>
+                - El juego dura 2 minutos.<br>
+                - Si llegas a 700 puntos, ganarás el juego.<br>
+                - ¡Intenta conseguir la mayor cantidad de puntos posible!<br>
+                - Si pierdes todo el tiempo, puedes contestar una pregunta para obtener tiempo extra!<br>
+            </p>
+            <p>¡Diviértete y buena suerte!</p>
+
+            <button class="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                onclick="closeModal('rulesModal')">Cerrar</button>
+        </div>
+    </div>
+
+    <div id="integrantesModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-1/2">
+            <h2 class="text-xl font-bold mb-4">Integrantes</h2>
+            <p>Dariem Yesca Cordero</p>
+            <p>Aaron Mena Bogarin</p>
+            <p>Ronny Sandino Alvarado</p>
+            <button class="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                onclick="closeModal('integrantesModal')">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Actualización del modal de retroalimentación en home.html -->
+    <div id="feedbackModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-3/4 max-h-[80vh] overflow-y-auto">
+            <h2 class="text-xl font-bold mb-4">Retroalimentación de Preguntas</h2>
+
+            <div id="feedback-List" class="space-y-4">
+                <!-- El contenido se cargará dinámicamente -->
+            </div>
+
+            <div class="mt-6 flex justify-between">
+                <button class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+                    onclick="localStorage.removeItem('answeredQuestions'); loadFeedback();">
+                    Borrar Historial
+                </button>
+                <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                    onclick="closeModal('feedbackModal')">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goGame() {
+            window.location.href = "index.html"; // Cambia a la URL de tu juego
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+
+        // Función para cargar y mostrar las preguntas respondidas
+        function loadFeedback() {
+            const feedbackList = document.getElementById("feedback-List");
+            feedbackList.innerHTML = ""; // Limpiar contenido anterior
+
+            // Obtener preguntas guardadas
+            const answeredQuestions = JSON.parse(localStorage.getItem('answeredQuestions')) || [];
+
+            if (answeredQuestions.length === 0) {
+                feedbackList.innerHTML = "<p class='text-center'>No hay preguntas respondidas todavía.</p>";
+                return;
+            }
+
+            // Crear elementos para cada pregunta
+            answeredQuestions.forEach((question, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.className = "border rounded-lg p-4 mb-4 " +
+                    (question.wasCorrect ? "border-green-500 bg-green-50" : "border-red-500 bg-red-50");
+
+                // Fecha formateada
+                const date = new Date(question.timestamp);
+                const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
+
+                questionDiv.innerHTML = `
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="font-bold">Pregunta ${index + 1}</h3>
+                <span class="text-sm text-gray-600">${formattedDate}</span>
+            </div>
+            <p class="mb-2">${question.wasCorrect ?
+                        '<span class="text-green-600 font-bold">✓ Respondida correctamente</span>' :
+                        '<span class="text-red-600 font-bold">✗ Respondida incorrectamente</span>'}</p>
+            <button class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm" 
+                   onclick="showProcedure(${index})">
+                Ver detalles
+            </button>
+        `;
+
+                feedbackList.appendChild(questionDiv);
+            });
+        }
+
+        // Función para mostrar el procedimiento de una pregunta específica
+        function showProcedure(index) {
+            const answeredQuestions = JSON.parse(localStorage.getItem('answeredQuestions')) || [];
+            if (!answeredQuestions[index]) return;
+
+            // Crear un modal para mostrar el procedimiento
+            const procedureModal = document.createElement("div");
+            procedureModal.className = "fixed inset-0 bg-gray-800 bg-opacity-70 flex items-center justify-center z-50";
+            procedureModal.id = "dynamicProcedureModal";
+
+            procedureModal.innerHTML = `
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+            <h2 class="text-xl font-bold mb-4">Detalles de la Pregunta</h2>
+            
+            <div class="mb-4">
+                <h3 class="font-semibold mb-2">Pregunta:</h3>
+                <img src="${answeredQuestions[index].questionImage}" class="mx-auto max-h-auto object-contain mb-4" alt="Pregunta">
+                
+                <h3 class="font-semibold mb-2">Procedimiento:</h3>
+                <img src="${answeredQuestions[index].procedureImage}" class="mx-auto max-h-auto object-contain" alt="Procedimiento">
+            </div>
+            
+            <div class="flex justify-end">
+                <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                    onclick="document.getElementById('dynamicProcedureModal').remove()">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    `;
+
+            document.body.appendChild(procedureModal);
+        }
+
+        // Modificar la función openModal para cargar retroalimentación cuando sea necesario
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+
+            // Si es el modal de retroalimentación, cargar datos
+            if (modalId === 'feedbackModal') {
+                loadFeedback();
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

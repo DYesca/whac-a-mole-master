@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golpea al Topo</title>
+    <link rel="stylesheet" href="/css/mole.css">
+    <script src="/js/mole.js" defer></script>
+    <audio id="background-music" src="/audio/Overworld Theme.mp3" loop></audio>
+    <audio id="victory-sound" src="/audio/Level Clear.mp3"></audio>
+    <audio id="game-over-sound" src="/audio/Game Over.mp3"></audio>
+    <audio id="time-hurried" src="/audio/Hurried Overworld.mp3"></audio>
+
+</head>
+
+<body>
+    <h1>Golpea al Topo</h1>
+    <h2 id="score">0</h2>
+    <h3 id="timer">Tiempo: 2:00</h3>
+
+
+    <!-- Modal de inicio -->
+    <div id="start-modal" class="modal">
+        <div class="start-modal-content">
+            <h2>¿Listo para jugar?</h2>
+            <p>Presiona "Estoy Listo" para comenzar.</p>
+            <button id="start-game">Estoy Listo</button>
+        </div>
+    </div>
+
+    <!-- Tablero del juego -->
+    <div id="board"></div>
+
+    <!-- Modal de nivel completado -->
+    <div id="win-modal" class="modal">
+        <div class="win-modal-content">
+            <h2>¡Felicidades!</h2>
+            <p>Lograste completar el Juego.</p>
+            <button onclick="location.reload()">Jugar de nuevo</button>
+            <button onclick="location.href='/html/home.html'">Volver al inicio</button>
+        </div>
+    </div>
+
+
+    <!-- Modal de Matematica -->
+    <div id="math-question-modal" class="modal">
+        <div class="math-modal-content">
+            <h2>¡Perdiste!</h2>
+            <p>Debes responder una pregunta para obtener otra oportunidad.</p>
+            <img id="math-question-image" src="" alt="Pregunta">
+            <div id="math-options">
+                <!-- Se llaman en el js -->
+            </div>
+            <button onclick="location.href='/html/home.html'">Volver al inicio</button>
+        </div>
+    </div>
+
+    <!-- Modal de Game Over -->
+    <div id="game-over-modal" class="modal">
+        <div class="game-over-modal-content">
+            <h2>¡Juego Terminado!</h2>
+            <p>Tu puntaje final es <span id="final-score"></span></p>
+            <button onclick="location.reload()">Jugar de nuevo</button>
+            <button onclick="location.href='/html/home.html'">Volver al inicio</button>
+        </div>
+    </div>
+
+
+    <!-- Modal pregunta acertada -->
+    <div id="correct-modal" class="modal">
+        <div class="correct-modal-content">
+            <h2>¡Respuesta Correcta!</h2>
+            <p>¡Puedes continuar jugando!</p>
+            <button onclick="closeCorrectModal()">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Modal de Pausa -->
+    <div id="pause-modal" class="modal">
+        <div class="pause-modal-content">
+            <h2>Juego en Pausa</h2>
+            <button onclick="resumeGame()">Continuar</button>
+            <button id="Reiniciar" onclick="location.reload()">Reiniciar</button>
+            <button onclick="location.href='/html/home.html'">Salir al Inicio</button>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
